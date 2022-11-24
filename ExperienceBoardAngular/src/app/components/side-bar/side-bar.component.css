@@ -1,0 +1,23 @@
+.sidebar-card {
+  color: #212529;
+}
+
+.side-bar-container {
+  padding: 20px;
+}
+
+.side-bar-editor {
+  background: #483a49;
+  color: white;
+  margin-top: -10px;
+}
+
+.widget-image {
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 1328px) {
+  .hide-mini {
+    display: none;
+  }
+}

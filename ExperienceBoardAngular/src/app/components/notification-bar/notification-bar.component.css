@@ -1,0 +1,11 @@
+.notif-bar {
+  border-radius: 0px;
+  border: 1px solid #aaaaaa;
+  box-sizing: border-box;
+  padding: 10px 25px;
+}
+
+.btn-theme{
+  margin-left: 1em;
+}
+

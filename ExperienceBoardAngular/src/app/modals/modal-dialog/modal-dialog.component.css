@@ -1,0 +1,32 @@
+.modal-title {
+  font-size: 20px;
+}
+
+.close-btn {
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.modal-header {
+  border-radius: 0px;
+  padding: 0.7rem 0rem;
+  margin: 0rem 1.7rem;
+}
+
+.modal-footer {
+  border-radius: 0px;
+  padding: 0.7rem 0rem;
+  margin: 0rem 1.7rem;
+}
+
+.modal-body {
+  padding: 0.7rem 0rem;
+  margin: 0rem 1.7rem;
+}
+
+.modal-footer {
+  display: block;
+}

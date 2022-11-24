@@ -1,0 +1,38 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <div *ngIf="dashboardService.widgetData$ | async as widget">
+    <div *ngIf="widget.type === 'statistics'" class="statistics">
+      <h1>Statistics</h1>
+      <myaccess-statistics
+        [title]="widget.title"
+        [value]="widget.value"
+        [status]="widget.status"
+        height="20em"
+        width="30em"
+        (onclick)="setData($event)"
+      ></myaccess-statistics>
+    </div>
+
+    <div *ngIf="widget.type === 'pie'" class="pie">
+      <h1>Pie Chart</h1>
+      <myaccess-pie
+        [title]="widget.label"
+        [chartHeight]="500"
+        [chartWidth]="900"
+        [showLabels]="true"
+        [colors]="myColors"
+        [data]="widget.pieData"
+      ></myaccess-pie>
+    </div>
+
+    <div *ngIf="widget.type === 'summary'" class="summary">
+      <h1>Summary</h1>
+      <myaccess-summary
+        [title]="widget.title"
+        [data]="widget.data"
+        (onclick)="setItem($event)"
+      ></myaccess-summary>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

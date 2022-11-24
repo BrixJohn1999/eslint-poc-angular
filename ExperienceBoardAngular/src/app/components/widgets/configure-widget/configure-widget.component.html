@@ -1,0 +1,15 @@
+<div class="configure-container" #configureWidget>
+  <div class="head-container">
+    <div *ngIf="dashboardService.isEditing$ | async">
+      <i class="fa fa-cog" id="editIcons" (click)="setConfiguration()"></i>
+      <i
+        class="fa fa-times ms-1"
+        id="editIcons"
+        (click)="deleteEmptyWidget()"
+      ></i>
+    </div>
+  </div>
+  <div class="configure-value">
+    <p>Click the "<i class="fa fa-cog"></i>" icon to change configuration</p>
+  </div>
+</div>
