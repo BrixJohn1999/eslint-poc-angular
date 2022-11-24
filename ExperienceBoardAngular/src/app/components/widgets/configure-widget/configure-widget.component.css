@@ -1,0 +1,36 @@
+.configure-container {
+  height: 100%;
+  padding: 2px;
+}
+
+.configure-container:hover {
+  cursor: pointer;
+  background-color: rgba(251, 251, 251, 0.984);
+}
+
+.widget-title {
+  font-size: 11px;
+}
+
+.head-container {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: start;
+  padding: 1em;
+}
+
+.configure-value {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.configure-value > span {
+  font-size: 14px;
+}

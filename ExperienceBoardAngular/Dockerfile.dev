@@ -1,0 +1,19 @@
+# syntax=docker/dockerfile:1
+
+FROM node:18.2-alpine
+
+WORKDIR /myaccess-experience-dashboard
+
+ENV PATH /myaccess-experience-dashboard/node_modules/.bin:$PATH
+
+COPY package.json /myaccess-experience-dashboard/package.json
+
+RUN npm i -g @angular/cli@14.0.6
+
+RUN npm install --force 
+
+COPY . /myaccess-experience-dashboard
+
+EXPOSE 3008
+
+CMD ["ng","serve","--host","0.0.0.0", "--disable-host-check=true", "--poll", "100"]

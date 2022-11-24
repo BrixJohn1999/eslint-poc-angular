@@ -1,0 +1,31 @@
+<div
+  class="statistics-container"
+  #statsWidget
+  (click)="setStatistics({title, value, status})"
+>
+  <div class="head-container">
+    <p class="widget-title">{{ title }}</p>
+    <div *ngIf="dashboardService.isEditing$ | async">
+      <i class="fa fa-cog" id="editIcons" (click)="setConfiguration()"></i>
+      <i
+        class="fa fa-times ms-1"
+        id="editIcons"
+        (click)="deleteStatistics()"
+      ></i>
+    </div>
+  </div>
+  <div
+    class="stats-value"
+    [style.font-size]="parentWidth > 283 ? '40px' : parentWidth / 7 + 'px'"
+  >
+    <fa-icon
+      *ngIf="status !== 'none'"
+      [icon]="status === 'Decrease' ? faDownLong : faUpLong"
+      [ngStyle]="{
+        color: status === 'Decrease' ? 'red' : 'green'
+      }"
+    ></fa-icon>
+
+    <span>{{ value.toString() }}</span>
+  </div>
+</div>

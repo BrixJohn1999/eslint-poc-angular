@@ -1,0 +1,12 @@
+Dockerfile.dev
+docker-compose.yml
+.dockerignore
+.git
+.gitignore
+.vscode
+README.md
+LICENSE
+node_modules/
+.angular/
+package-lock.json
+yarn.lock
