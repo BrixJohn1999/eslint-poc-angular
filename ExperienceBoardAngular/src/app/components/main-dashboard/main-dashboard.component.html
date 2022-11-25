@@ -1,0 +1,128 @@
+<app-navigation></app-navigation>
+<app-notification-bar
+  (onrefresh)="resetPage()"
+  (onedit)="onEdit($event)"
+  (onsave)="onSubmit($event)"
+></app-notification-bar>
+<div class="container-fluid">
+  <div class="row main-grid">
+    <div
+      class="{{
+        (dashboardService.isEditing$ | async) && !hideRightPanel
+          ? 'col-10'
+          : 'col-12'
+      }}"
+      #widgetsContainer
+    >
+      <div class="loading" *ngIf="loadingSpinner">
+        <myaccess-spinner
+          message="Loading widgets..."
+          size="sm"
+        ></myaccess-spinner>
+      </div>
+      <div class="grid-stack"></div>
+    </div>
+
+    <div
+      class="{{
+        !hideRightPanel
+          ? 'col-2'
+          : 'right-info-collapse right-info position-fixed'
+      }} {{ openPannel && 'open' }}  p-0"
+      *ngIf="dashboardService.isEditing$ | async"
+    >
+      <button
+        class="btn-theme btn-toggle-info  {{ openPannel && 'open' }} "
+        (click)="onToggle()"
+      >
+        <i
+          *ngIf="!openPannel"
+          class="fa fa-angle-double-left"
+          aria-hidden="true"
+        ></i>
+        <i
+          *ngIf="openPannel"
+          class="fa fa-angle-double-right"
+          aria-hidden="true"
+        ></i>
+      </button>
+      <app-side-bar></app-side-bar>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+<app-modal-dialog modal_title="" #removeStatisticsModal size="sm">
+  <div modal-body class="modal-body">
+    <p>
+      Remove "{{ selectedWidgetsDataToRemove.widgetsTitle }}" widget from your
+      Dashboard?
+    </p>
+  </div>
+  <button
+    class="btn-theme float-end"
+    modal-footer
+    style="margin-left: 4px !important"
+    (click)="cancelDeletingSelectedWidget()"
+  >
+    Cancel
+  </button>
+  <button
+    class="btn-theme float-end"
+    modal-footer
+    (click)="confirmDeleteSelectedWidget()"
+  >
+    Yes
+  </button>
+</app-modal-dialog>
+<app-modal-dialog modal_title="Configuration" #statisticsModal>
+  <div modal-body class="modal-body" [formGroup]="statisticsConfigurationForm">
+    <div class="order-form-group">
+      <label for="statistics">Type</label>
+      <select
+        class="form-control service-type-names"
+        name="statistics"
+        formControlName="type"
+        (click)="hasDateSearch()"
+      >
+        <option selected disabled [value]="0">Select a widget</option>
+        <option *ngFor="let stats of statisticsList" [value]="stats.widgetsId">
+          {{ stats.widgetsTitle }}
+        </option>
+      </select>
+    </div>
+    <div class="order-form-group">
+      <label for="region">Region</label>
+      <select
+        class="form-control service-type-names"
+        name="region"
+        formControlName="region"
+      >
+        <option *ngFor="let region of regionList" [value]="region.value">
+          {{ region.title }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="hasDateSearch()">
+      <div class="order-form-group">
+        <label for="region">Start Date</label>
+        <input type="date" class="form-control" formControlName="startDate" />
+      </div>
+      <div class="order-form-group">
+        <label for="region">End Date</label>
+        <input type="date" class="form-control" formControlName="endDate" />
+      </div>
+    </div>
+  </div>
+  <button
+    class="btn-theme float-end"
+    modal-footer
+    style="margin-left: 4px !important"
+    (click)="closeStatisticsModal()"
+  >
+    Cancel
+  </button>
+  <button class="btn-theme float-end" modal-footer (click)="saveStatistics()">
+    Apply
+  </button>
+</app-modal-dialog>

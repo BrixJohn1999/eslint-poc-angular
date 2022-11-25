@@ -1,0 +1,55 @@
+@font-face {
+  font-family: New Rail Alphabet;
+  src: url(/assets/fonts/NewRailAlphabet-Light.otf);
+}
+
+@import url(//db.onlinewebfonts.com/c/4a373e70cd01dec089c1dd1185ceba51?family=Maison+Neue);
+
+body {
+  font-family: New Rail Alphabet;
+  font-weight: 300;
+  color: #323234;
+  font-size: 14px;
+}
+
+input[type='email'],
+input[type='text'],
+input[type='number'],
+input[type='password'] {
+  border-radius: 0 !important;
+  font-size: 12px;
+  padding: 10px 15px;
+}
+
+.btn-theme {
+  background: #483a49;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 40px;
+  width: auto;
+  border: none;
+  border-radius: 0;
+  transition: 0.2s background ease-in-out;
+}
+
+.btn-theme:disabled,
+.btn-theme:hover {
+  background: #d0d0d0;
+  color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.color-theme {
+  color: #483a49;
+}
+
+.font-Maison-Neue {
+  font-family: 'Maison Neue';
+}
+
+.font-bold {
+  font-weight: 700;
+}

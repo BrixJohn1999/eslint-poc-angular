@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+#############
+### build ###
+#############
+
+# base image
+FROM node:18.2-alpine
+
+# set working directory
+WORKDIR /myaccess-experience-dashboard
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /myaccess-experience-dashboard/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /myaccess-experience-dashboard/package.json
+
+RUN npm i -g @angular/cli@14.0.6
+
+RUN npm install --force 
+
+COPY . /myaccess-experience-dashboard
+
+EXPOSE 3008
+
+CMD ["ng","serve","--host","0.0.0.0", "--disable-host-check=true", "--poll", "100"]

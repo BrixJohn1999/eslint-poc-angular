@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: jairosoft2/myaccess-experience-dashboard
+    volumes:
+      - ".:/myaccess-experience-dashboard"
+      - "/myaccess-experience-dashboard/node_modules"
+      - "/myaccess-experience-dashboard/.angular"
+    ports:
+      - "3008:3008"

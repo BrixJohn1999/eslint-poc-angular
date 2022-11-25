@@ -1,0 +1,39 @@
+<div class="container-fluid notif-bar">
+  <div class="row">
+    <div class="col-12 align-items-center d-flex">
+      <h5 class="mb-0" style="font-size: 1.25em">Portfolio Dashboard</h5>
+      <button
+        type="button"
+        class="btn-theme"
+        (click)="onEdit()"
+        *ngIf="!(dashboardService.isEditing$ | async)"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        class="btn-theme"
+        (click)="onSave()"
+        *ngIf="dashboardService.isEditing$ | async"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="btn-theme"
+        (click)="onCancel()"
+        *ngIf="dashboardService.isEditing$ | async"
+      >
+        Cancel
+      </button>
+      <button
+        type="button "
+        class="btn-theme"
+        [disabled]="dashboardService.isEditing$ | async"
+        (click)="onRefresh()"
+      >
+        Refresh
+      </button>
+    </div>
+  </div>
+</div>
