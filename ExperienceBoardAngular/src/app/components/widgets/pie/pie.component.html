@@ -1,0 +1,35 @@
+<div class="card-item-content">
+  <div class="card-body" style="height: 100%">
+    <div class="row">
+      <div class="col-12">
+        <div class="card-title-container">
+          <p class="text-start fw-bold card-label mb-0">
+            {{ title }}
+          </p>
+          <div
+            class="position-absolute"
+            style="right: 10px; top: 5px"
+            *ngIf="dashboardService.isEditing$ | async"
+          >
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <i class="fa fa-times ms-1" id="editIcons"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card-content pie-chart-container">
+          <ngx-charts-pie-chart
+            [results]="data"
+            [legend]="false"
+            [customColors]="barChartcustomColors"
+            [legendTitle]="'Measurement Status'"
+            [view]="[400, 280]"
+            [labels]="true"
+            (select)="setSelectedPie($event)"
+          >
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

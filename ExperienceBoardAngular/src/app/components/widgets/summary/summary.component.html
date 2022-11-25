@@ -1,0 +1,36 @@
+<div class="card-item-content summary-container">
+  <div class="card-body" style="height: 100%">
+    <div class="card-title-container">
+      <p class="text-start fw-bold card-label mb-0">
+        {{ title }}
+      </p>
+      <div
+        class="position-absolute"
+        style="right: 10px; top: 5px"
+        *ngIf="dashboardService.isEditing$ | async"
+      >
+        <i
+          class="fa fa-cog"
+          id="editIcons"
+          data-bs-toggle="modal"
+          data-bs-target="#configuration"
+        ></i>
+        <i class="fa fa-times ms-1" id="editIcons"></i>
+      </div>
+    </div>
+    <div class="card-content p-3 my-2 summary-text">
+      <div
+        class="row mb-2"
+        *ngFor="let item of widgetsValue"
+        (click)="onSelect(item)"
+      >
+        <div class="col-6">
+          <p class="mb-0">{{ item[0] }}</p>
+        </div>
+        <div class="col-6">
+          <p class="mb-0">{{ item[1] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
