@@ -22,13 +22,3 @@ steps:
 
 - script: 'npm run lint'
   displayName: 'Run lint'
-
-- task: ArchiveFiles@2
-  displayName: 'Archive myaccess-2.0-dashboard'
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/myaccess-2.0-dashboard'
-    includeRootFolder: false
-    archiveFile: '$(Build.ArtifactStagingDirectory)/dist.zip'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
