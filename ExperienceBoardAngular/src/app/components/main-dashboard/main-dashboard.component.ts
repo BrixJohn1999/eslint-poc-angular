@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import {
   ApplicationRef,
   Component,
@@ -150,7 +151,7 @@ export class MainDashboardComponent implements OnInit {
     const result = this.dashboardService.getAccessibleWidgets(this.widgetArgs);
     const accessibleWidgets = await result;
     this.acccessibleWidgetListData = accessibleWidgets;
-    for (let aw of accessibleWidgets) {
+    for (const aw of accessibleWidgets) {
       const existed = this.widgetListData.some(
         (el) => el.widgetsId === aw.widgetsId
       );
@@ -175,7 +176,7 @@ export class MainDashboardComponent implements OnInit {
   hasDateSearch() {
     if (this.statisticsConfigurationForm.value.type) {
       const id = parseInt(this.statisticsConfigurationForm.value.type);
-      for (let aw of this.acccessibleWidgetListData) {
+      for (const aw of this.acccessibleWidgetListData) {
         if (aw.widgetsId === id && aw.showDate === true) return true;
       }
     }
@@ -208,7 +209,7 @@ export class MainDashboardComponent implements OnInit {
         (widget) => widget.widgetsId !== parseInt(widgetsId)
       );
     }
-    el = element.nativeElement.parentElement.parentElement.parentElement;
+     el = element.nativeElement.parentElement.parentElement.parentElement;
     el.remove();
     this.gridStack.removeWidget(el);
     this.removeStatisticsModal.close();
@@ -319,7 +320,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   async prepareStatisticsDataBeforeSave(widgetsLocation: string) {
-    let { startDate, endDate, type, region } =
+    let { startDate, endDate, type,  } =
       this.statisticsConfigurationForm.value;
 
     let statistics!: Widgets;
@@ -380,7 +381,7 @@ export class MainDashboardComponent implements OnInit {
 
   submitUpdatedWidgets() {
     const payload = this.prepareWidgetsPayload();
-    this.dashboardService.saveWidgets(payload).subscribe((res) => {
+    this.dashboardService.saveWidgets(payload).subscribe(() => {
       this.resetPage();
     });
   }
@@ -409,10 +410,10 @@ export class MainDashboardComponent implements OnInit {
       dragInOptions: { appendTo: 'body', helper: 'clone' },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.gridStack.on('added', (event: Event, items: GridStackNode[]) => {
       this.dashboardService.isEditing$.subscribe((editing) => {
-        if (editing && this.showSidebar) {
-        }
+        if (editing && this.showSidebar) { /* empty */ }
       });
     });
 
@@ -482,6 +483,7 @@ export class MainDashboardComponent implements OnInit {
       } = widget;
       switch (widgetsType) {
         case 'Summary':
+          {
           this.summaryArgs.apiUrl = apiUrl;
           const initialSummary = {
             widgetsId,
@@ -497,7 +499,9 @@ export class MainDashboardComponent implements OnInit {
           const summary = this.getSummaryData(this.summaryArgs, initialSummary);
           this.widgetsPromises.push(summary);
           break;
+        }
         case 'Statistics':
+          {
           let statisticsArgs: StatisticsArgs = {
             ...this.statisticsArgs,
             apiUrl,
@@ -531,7 +535,9 @@ export class MainDashboardComponent implements OnInit {
           this.widgetsPromises.push(statistics);
 
           break;
+        }
         case 'Pie':
+          {
           this.chartArgs.apiUrl = apiUrl;
           const initialChart = {
             widgetsId,
@@ -551,6 +557,7 @@ export class MainDashboardComponent implements OnInit {
           );
           this.widgetsPromises.push(chart);
           break;
+        }
         default:
           break;
       }

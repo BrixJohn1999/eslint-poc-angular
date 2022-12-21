@@ -40,7 +40,8 @@ export class StatisticsComponent implements OnInit {
     this.setOnresize();
   }
 
-  setStatistics(data: any) {}
+
+  setStatistics() {}
 
   deleteStatistics() {
     this.onclickdelete.emit({

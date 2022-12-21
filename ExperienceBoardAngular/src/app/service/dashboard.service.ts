@@ -9,7 +9,6 @@ import {
 } from '../gql/response/widgets.response';
 import { environment } from '../../environments/environment';
 import { GET_ACCESSIBLE_WIDGETS } from '../gql/query/widgets.query';
-import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',

@@ -17,7 +17,7 @@ export class PieComponent implements OnInit {
     this.formatColor();
   }
   formatColor() {
-    let data = this.data;
+    const data = this.data;
     for (let i = 0; i < data.length; i++) {
       this.barChartcustomColors.push({
         name: data[i].name,
@@ -27,7 +27,7 @@ export class PieComponent implements OnInit {
   }
 
   setSelectedPie(data: any) {
-    const { name, value, label } = data;
+    const { name } = data;
     window.location.href = `https://qa3-myaccess.stevensonsystems.com/my-properties?filter=${name}`;
   }
 }

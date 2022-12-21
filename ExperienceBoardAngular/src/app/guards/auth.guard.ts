@@ -6,7 +6,6 @@ import {
   Params,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DashboardService } from '../service/dashboard.service';

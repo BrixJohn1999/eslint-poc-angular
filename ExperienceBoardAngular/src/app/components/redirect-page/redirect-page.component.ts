@@ -20,7 +20,7 @@ export class RedirectPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  setData(data: any) {}
+  setData() {}
 
-  setItem(item: any) {}
+  setItem() {}
 }

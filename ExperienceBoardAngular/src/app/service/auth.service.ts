@@ -29,7 +29,7 @@ export class AuthService {
           (res) => {
             resolve(res);
           },
-          (error) => {
+          () => {
             reject();
           }
         );
@@ -49,7 +49,7 @@ export class AuthService {
           (res) => {
             resolve(res);
           },
-          (error) => {
+          () => {
             reject();
           }
         );

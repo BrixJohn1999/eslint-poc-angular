@@ -12,7 +12,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        let access_token = localStorage.getItem('access_token');
+        const access_token = localStorage.getItem('access_token');
         if (access_token) {
             request = request.clone({
                 setHeaders: {
