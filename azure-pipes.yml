@@ -1,0 +1,31 @@
+pool:
+  name: Azure Pipelines
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node 18.x'
+  inputs:
+    versionSpec: 18.x
+    checkLatest: true
+
+- task: Npm@1
+  displayName: 'npm custom'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'install --force'
+
+- script: 'npm run lint'
+  displayName: 'Run lint'
+
+- script: 'npm run build'
+  displayName: 'Run build'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive myaccess-2.0-dashboard'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/myaccess-2.0-dashboard'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/dist.zip'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
