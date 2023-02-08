@@ -6,6 +6,7 @@
     "start": "ng serve",
     "lint": "eslint src",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --aot",
     "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
