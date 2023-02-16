@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DashboardService } from 'src/app/service/dashboard.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { DashboardService } from "src/app/service/dashboard.service";
 
 @Component({
-  selector: 'app-notification-bar',
-  templateUrl: './notification-bar.component.html',
-  styleUrls: ['./notification-bar.component.css'],
+  selector: "app-notification-bar",
+  templateUrl: "./notification-bar.component.html",
+  styleUrls: ["./notification-bar.component.css"],
 })
 export class NotificationBarComponent implements OnInit {
   @Output() onrefresh: EventEmitter<any> = new EventEmitter<any>();
@@ -12,7 +12,6 @@ export class NotificationBarComponent implements OnInit {
   @Output() onsave: EventEmitter<any> = new EventEmitter<any>();
   constructor(public dashboardService: DashboardService) {}
 
-  ngOnInit(): void {}
   onEdit() {
     this.onedit.emit(true);
     this.dashboardService.setEdit(true);

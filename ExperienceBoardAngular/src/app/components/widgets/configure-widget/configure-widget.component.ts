@@ -6,13 +6,13 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { DashboardService } from 'src/app/service/dashboard.service';
+} from "@angular/core";
+import { DashboardService } from "src/app/service/dashboard.service";
 
 @Component({
-  selector: 'app-configure-widget',
-  templateUrl: './configure-widget.component.html',
-  styleUrls: ['./configure-widget.component.css'],
+  selector: "app-configure-widget",
+  templateUrl: "./configure-widget.component.html",
+  styleUrls: ["./configure-widget.component.css"],
 })
 export class ConfigureWidgetComponent implements OnInit {
   constructor(
@@ -22,15 +22,13 @@ export class ConfigureWidgetComponent implements OnInit {
 
   @Input() configureData = {
     element: this.elRef,
-    widgetsTitle: 'empty',
+    widgetsTitle: "empty",
     widgetId: 0,
   };
   @Output() onclick = new EventEmitter<any>();
   @Output() onclickdelete = new EventEmitter<any>();
-  @ViewChild('configureWidget', { read: ElementRef, static: true })
+  @ViewChild("configureWidget", { read: ElementRef, static: true })
   configureWidget!: ElementRef;
-
-  ngOnInit(): void {}
 
   setConfiguration() {
     this.onclick.emit({ element: this.elRef });
@@ -39,7 +37,7 @@ export class ConfigureWidgetComponent implements OnInit {
   deleteEmptyWidget() {
     this.onclickdelete.emit({
       element: this.elRef,
-      widgetsTitle: 'empty',
+      widgetsTitle: "empty",
       widgetsId: 0,
     });
   }

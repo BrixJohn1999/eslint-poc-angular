@@ -6,14 +6,14 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { faUpLong, faDownLong } from '@fortawesome/free-solid-svg-icons';
-import { DashboardService } from 'src/app/service/dashboard.service';
+} from "@angular/core";
+import { faUpLong, faDownLong } from "@fortawesome/free-solid-svg-icons";
+import { DashboardService } from "src/app/service/dashboard.service";
 
 @Component({
-  selector: 'app-statistics',
-  templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css'],
+  selector: "app-statistics",
+  templateUrl: "./statistics.component.html",
+  styleUrls: ["./statistics.component.css"],
 })
 export class StatisticsComponent implements OnInit {
   constructor(
@@ -23,25 +23,22 @@ export class StatisticsComponent implements OnInit {
   faUpLong = faUpLong;
   faDownLong = faDownLong;
 
-  @Input() title: string = 'Total Buildings';
-  @Input() value: string = '694';
-  @Input() status: string = 'none';
+  @Input() title: string = "Total Buildings";
+  @Input() value: string = "694";
+  @Input() status: string = "none";
   @Input() widgetsId: number = 0;
-  @Input() widgetsLocation: string = '';
-  @Input() icon = '';
+  @Input() widgetsLocation: string = "";
+  @Input() icon = "";
   @Input() iconOnly = false;
   @Output() onclick = new EventEmitter<any>();
   @Output() onclickdelete = new EventEmitter<any>();
-  @ViewChild('statsWidget', { read: ElementRef, static: true })
+  @ViewChild("statsWidget", { read: ElementRef, static: true })
   statsWidget!: ElementRef;
   parentWidth: number = 202;
 
   ngOnInit(): void {
     this.setOnresize();
   }
-
-
-  setStatistics() {}
 
   deleteStatistics() {
     this.onclickdelete.emit({

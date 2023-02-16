@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import {
   ApplicationRef,
   Component,
@@ -9,44 +8,44 @@ import {
   Injector,
   OnInit,
   ViewChild,
-} from '@angular/core';
-import { DashboardService } from 'src/app/service/dashboard.service';
-import { Subscription } from 'rxjs';
-import { GridStack, GridStackNode, GridStackWidget } from 'gridstack';
+} from "@angular/core";
+import { DashboardService } from "src/app/service/dashboard.service";
+import { Subscription } from "rxjs";
+import { GridStack, GridStackNode, GridStackWidget } from "gridstack";
 
-import { StatisticsComponent } from '../widgets/statistics/statistics.component';
-import { SummaryComponent } from '../widgets/summary/summary.component';
-import { PieComponent } from '../widgets/pie/pie.component';
-import { AuthService } from 'src/app/service/auth.service';
-import { StatisticsService } from 'src/app/service/statistics.service';
-import { StatisticsArgs } from 'src/app/gql/args/statistics.args';
-import { SummaryService } from 'src/app/service/summary.service';
-import { SummaryArgs } from 'src/app/gql/args/summary.args';
-import { ChartArgs } from 'src/app/gql/args/chart.args';
-import { ChartService } from 'src/app/service/chart.service';
-import { WidgetsArgs } from 'src/app/gql/args/widgets.args';
-import { GET_USER_WIDGETS } from 'src/app/gql/query/widgets.query';
-import { Widgets } from 'src/app/model/widgets.model';
-import 'gridstack/dist/h5/gridstack-dd-native';
-import 'gridstack/dist/jq/gridstack-dd-jqueryui';
-import 'node_modules/gridstack/dist/gridstack.min.css';
-import 'node_modules/gridstack/dist/gridstack-h5.js';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDialogComponent } from 'src/app/modals/modal-dialog/modal-dialog.component';
-import { ConfigureWidgetComponent } from '../widgets/configure-widget/configure-widget.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SpinnerComponent } from 'myaccess-storybook';
+import { StatisticsComponent } from "../widgets/statistics/statistics.component";
+import { SummaryComponent } from "../widgets/summary/summary.component";
+import { PieComponent } from "../widgets/pie/pie.component";
+import { AuthService } from "src/app/service/auth.service";
+import { StatisticsService } from "src/app/service/statistics.service";
+import { StatisticsArgs } from "src/app/gql/args/statistics.args";
+import { SummaryService } from "src/app/service/summary.service";
+import { SummaryArgs } from "src/app/gql/args/summary.args";
+import { ChartArgs } from "src/app/gql/args/chart.args";
+import { ChartService } from "src/app/service/chart.service";
+import { WidgetsArgs } from "src/app/gql/args/widgets.args";
+import { GET_USER_WIDGETS } from "src/app/gql/query/widgets.query";
+import { Widgets } from "src/app/model/widgets.model";
+import "gridstack/dist/h5/gridstack-dd-native";
+import "gridstack/dist/jq/gridstack-dd-jqueryui";
+import "node_modules/gridstack/dist/gridstack.min.css";
+import "node_modules/gridstack/dist/gridstack-h5.js";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ModalDialogComponent } from "src/app/modals/modal-dialog/modal-dialog.component";
+import { ConfigureWidgetComponent } from "../widgets/configure-widget/configure-widget.component";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { SpinnerComponent } from "myaccess-storybook";
 
 @Component({
-  selector: 'app-main-dashboard',
-  templateUrl: './main-dashboard.component.html',
-  styleUrls: ['./main-dashboard.component.css'],
+  selector: "app-main-dashboard",
+  templateUrl: "./main-dashboard.component.html",
+  styleUrls: ["./main-dashboard.component.css"],
 })
 export class MainDashboardComponent implements OnInit {
-  @ViewChild('statisticsModal') statisticsModal!: ModalDialogComponent;
-  @ViewChild('removeStatisticsModal')
+  @ViewChild("statisticsModal") statisticsModal!: ModalDialogComponent;
+  @ViewChild("removeStatisticsModal")
   removeStatisticsModal!: ModalDialogComponent;
-  @ViewChild('chartModal') chartModal!: ModalDialogComponent;
+  @ViewChild("chartModal") chartModal!: ModalDialogComponent;
   widgetsContainer!: ElementRef;
   cols: number = 12;
   rowHeight: number = 130;
@@ -76,37 +75,37 @@ export class MainDashboardComponent implements OnInit {
   addingNewWidgetsData: any = {};
 
   statisticsConfigurationForm = new FormGroup({
-    type: new FormControl('', [Validators.required]),
-    region: new FormControl('', [Validators.required]),
+    type: new FormControl("", [Validators.required]),
+    region: new FormControl("", [Validators.required]),
     startDate: new FormControl(new Date().toISOString(), [Validators.required]),
     endDate: new FormControl(new Date().toISOString(), [Validators.required]),
   });
 
   regionList: any[] = [
-    { value: 'all', title: 'All' },
-    { value: 'western', title: 'Western' },
-    { value: 'southern', title: 'Southern' },
-    { value: 'midwestern', title: 'Midwestern' },
-    { value: 'northeastern', title: 'Northeastern' },
+    { value: "all", title: "All" },
+    { value: "western", title: "Western" },
+    { value: "southern", title: "Southern" },
+    { value: "midwestern", title: "Midwestern" },
+    { value: "northeastern", title: "Northeastern" },
   ];
 
   statisticsArgs: StatisticsArgs = {
     userId: 0,
-    region: 'all',
+    region: "all",
     apiUrl:
-      'api/dashboard/portfolio/get-user-total-buildings/{userId}/{region}',
+      "api/dashboard/portfolio/get-user-total-buildings/{userId}/{region}",
     sessionToken: null,
   };
 
   summaryArgs: SummaryArgs = {
     userId: 0,
-    apiUrl: '',
+    apiUrl: "",
     sessionToken: null,
   };
 
   chartArgs: ChartArgs = {
     userId: 0,
-    apiUrl: '',
+    apiUrl: "",
     sessionToken: null,
   };
 
@@ -128,16 +127,16 @@ export class MainDashboardComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    if (this.authService.getCookie('SID') === null) {
+    if (this.authService.getCookie("SID") === null) {
       this.authService.setCookie(
-        'SID',
-        'U2FsdGVkX18l43TGq8PrxWFUZ9QrpPvcg37BAsH65dGh0oF1shrA98m33bDYFLJW0iqAe5QPO0nApfs694AFjA=='
+        "SID",
+        "U2FsdGVkX18l43TGq8PrxWFUZ9QrpPvcg37BAsH65dGh0oF1shrA98m33bDYFLJW0iqAe5QPO0nApfs694AFjA=="
       );
     }
-    this.statisticsArgs.sessionToken = this.authService.getCookie('SID');
-    this.summaryArgs.sessionToken = this.authService.getCookie('SID');
-    this.chartArgs.sessionToken = this.authService.getCookie('SID');
-    this.widgetArgs.sessionToken = this.authService.getCookie('SID');
+    this.statisticsArgs.sessionToken = this.authService.getCookie("SID");
+    this.summaryArgs.sessionToken = this.authService.getCookie("SID");
+    this.chartArgs.sessionToken = this.authService.getCookie("SID");
+    this.widgetArgs.sessionToken = this.authService.getCookie("SID");
 
     await this.getWidgetsData(this.widgetArgs, GET_USER_WIDGETS);
     this.widgetListData = await this.getWidgetsDataInPromise();
@@ -157,13 +156,13 @@ export class MainDashboardComponent implements OnInit {
       );
       if (!existed) {
         switch (aw.widgetsType) {
-          case 'Statistics':
+          case "Statistics":
             this.statisticsList.push(aw);
             break;
-          case 'Summary':
+          case "Summary":
             this.summaryList.push(aw);
             break;
-          case 'Pie':
+          case "Pie":
             this.chartList.push(aw);
             break;
           default:
@@ -185,8 +184,8 @@ export class MainDashboardComponent implements OnInit {
 
   resetPage() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['./'], { relativeTo: this.route });
+    this.router.onSameUrlNavigation = "reload";
+    this.router.navigate(["./"], { relativeTo: this.route });
   }
 
   deleteSelectedWidget(data: any): void {
@@ -209,7 +208,7 @@ export class MainDashboardComponent implements OnInit {
         (widget) => widget.widgetsId !== parseInt(widgetsId)
       );
     }
-     el = element.nativeElement.parentElement.parentElement.parentElement;
+    el = element.nativeElement.parentElement.parentElement.parentElement;
     el.remove();
     this.gridStack.removeWidget(el);
     this.removeStatisticsModal.close();
@@ -217,10 +216,10 @@ export class MainDashboardComponent implements OnInit {
 
   prepareWidgetsPayload() {
     let payload: any = {
-      sessionToken: this.authService.getCookie('SID'),
+      sessionToken: this.authService.getCookie("SID"),
       UserId: 0,
       WidgetOrderIds: [],
-      Email: 'ZavantiAdmin@stevensonsystems.com',
+      Email: "ZavantiAdmin@stevensonsystems.com",
       WidgetsLocation: [],
       WidgetsIds: [],
       StartDates: [],
@@ -260,10 +259,10 @@ export class MainDashboardComponent implements OnInit {
       !this.isEditingExistingWidget &&
       this.isAddingNewWidgetByDrag
     ) {
-      let widgetsLocation = '';
+      let widgetsLocation = "";
       const { element } = this.addingNewWidgetsData;
       const elToAdd = element.nativeElement.parentElement.parentElement;
-      const template = document.createElement('template');
+      const template = document.createElement("template");
       template.innerHTML =
         `<div id='widget-temporary-item' style="position: absolute; left: 40%; top:30%;"></div>`.trim();
       const widgetElement = template.content.firstChild;
@@ -291,7 +290,7 @@ export class MainDashboardComponent implements OnInit {
       const { widgetsId, widgetsLocation, element } = this.editingWidgetsData;
 
       const elToAdd = element.nativeElement.parentElement.parentElement;
-      const template = document.createElement('template');
+      const template = document.createElement("template");
       template.innerHTML =
         `<div id='widget-${widgetsId}' style="position: absolute; left: 40%; top:30%;"></div>`.trim();
       const widgetElement = template.content.firstChild;
@@ -315,13 +314,12 @@ export class MainDashboardComponent implements OnInit {
       );
       this.isEditingExistingWidget = false;
     } else {
-      console.error('Please fill in the empty widget first!');
+      console.error("Please fill in the empty widget first!");
     }
   }
 
   async prepareStatisticsDataBeforeSave(widgetsLocation: string) {
-    let { startDate, endDate, type,  } =
-      this.statisticsConfigurationForm.value;
+    let { startDate, endDate, type } = this.statisticsConfigurationForm.value;
 
     let statistics!: Widgets;
     for (let stats of this.statisticsList) {
@@ -340,8 +338,8 @@ export class MainDashboardComponent implements OnInit {
         isDateSearch,
         apiUrl,
       } = statistics;
-      startDate = startDate === '' ? new Date().toISOString() : startDate;
-      endDate = endDate === '' ? new Date().toISOString() : endDate;
+      startDate = startDate === "" ? new Date().toISOString() : startDate;
+      endDate = endDate === "" ? new Date().toISOString() : endDate;
       const initialStatistics = {
         widgetsId,
         widgetsTitle,
@@ -374,7 +372,7 @@ export class MainDashboardComponent implements OnInit {
       );
       return res;
     } else {
-      console.error('Statistics not found!');
+      console.error("Statistics not found!");
       return null;
     }
   }
@@ -406,19 +404,21 @@ export class MainDashboardComponent implements OnInit {
       disableDrag: true,
       float: true,
       acceptWidgets: true,
-      dragIn: '.drag-widget',
-      dragInOptions: { appendTo: 'body', helper: 'clone' },
+      dragIn: ".drag-widget",
+      dragInOptions: { appendTo: "body", helper: "clone" },
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    this.gridStack.on('added', (event: Event, items: GridStackNode[]) => {
+    this.gridStack.on("added", (event: Event, items: GridStackNode[]) => {
       this.dashboardService.isEditing$.subscribe((editing) => {
-        if (editing && this.showSidebar) { /* empty */ }
+        if (editing && this.showSidebar) {
+          /* empty */
+        }
       });
     });
 
     this.gridStack.on(
-      'dropped',
+      "dropped",
       (
         event: Event,
         previousWidget: GridStackNode,
@@ -429,7 +429,7 @@ export class MainDashboardComponent implements OnInit {
           const elToAdd: any = newWidget.el?.firstElementChild;
           const elToRemove = newWidget.el?.firstElementChild?.firstElementChild;
           elToRemove?.remove();
-          const template = document.createElement('template');
+          const template = document.createElement("template");
           template.innerHTML =
             `<div id='widget-temporary-item' style="height: 100%;"></div>`.trim();
           const widgetElement = template.content.firstChild;
@@ -440,7 +440,7 @@ export class MainDashboardComponent implements OnInit {
       }
     );
 
-    this.gridStack.on('change', (event: Event, items: GridStackNode[]) => {
+    this.gridStack.on("change", (event: Event, items: GridStackNode[]) => {
       this.setOnGridstackChanged(items);
     });
 
@@ -482,8 +482,7 @@ export class MainDashboardComponent implements OnInit {
         widgetsType,
       } = widget;
       switch (widgetsType) {
-        case 'Summary':
-          {
+        case "Summary": {
           this.summaryArgs.apiUrl = apiUrl;
           const initialSummary = {
             widgetsId,
@@ -500,8 +499,7 @@ export class MainDashboardComponent implements OnInit {
           this.widgetsPromises.push(summary);
           break;
         }
-        case 'Statistics':
-          {
+        case "Statistics": {
           let statisticsArgs: StatisticsArgs = {
             ...this.statisticsArgs,
             apiUrl,
@@ -536,8 +534,7 @@ export class MainDashboardComponent implements OnInit {
 
           break;
         }
-        case 'Pie':
-          {
+        case "Pie": {
           this.chartArgs.apiUrl = apiUrl;
           const initialChart = {
             widgetsId,
@@ -573,12 +570,12 @@ export class MainDashboardComponent implements OnInit {
     const { values } = response;
     const statusList = Object.entries(values[0].status);
     const colors = [
-      '#C4354F',
-      '#007BFF',
-      '#DEEB47',
-      '#15a31c',
-      '#c110e0',
-      '#271c33',
+      "#C4354F",
+      "#007BFF",
+      "#DEEB47",
+      "#15a31c",
+      "#c110e0",
+      "#271c33",
     ];
     let newValues = [];
     for (let x = 1; x < statusList.length; x++) {
@@ -616,7 +613,7 @@ export class MainDashboardComponent implements OnInit {
     const stats: any = {
       ...initialStatistics,
       widgetsValue: value,
-      widgetsStatus: status || 'none',
+      widgetsStatus: status || "none",
       region,
     };
     return stats;
@@ -626,7 +623,7 @@ export class MainDashboardComponent implements OnInit {
     if (this.widgetListData.length !== 0) {
       this.widgetListData.map((d: any) => {
         const { widgetsLocation, widgetsId } = d;
-        let loc = widgetsLocation.split('-');
+        let loc = widgetsLocation.split("-");
         this.widgetList.push({
           id: widgetsId,
           w: Number(loc[0]) * 2,
@@ -687,10 +684,10 @@ export class MainDashboardComponent implements OnInit {
         widgetsLocation,
       } = widget;
       switch (widgetsType) {
-        case 'Summary':
+        case "Summary":
           this.renderSummaryComponents(widgetsId, widgetsTitle, widgetsValue);
           break;
-        case 'Statistics':
+        case "Statistics":
           this.renderStatisticsComponents(
             widgetsId,
             widgetsTitle,
@@ -699,7 +696,7 @@ export class MainDashboardComponent implements OnInit {
             widgetsLocation
           );
           break;
-        case 'Pie':
+        case "Pie":
           this.renderPieComponents(widgetsId, widgetsTitle, widgetsValue);
           break;
         default:
@@ -727,7 +724,7 @@ export class MainDashboardComponent implements OnInit {
       .rootNodes[0] as HTMLElement;
 
     document
-      .getElementById('widget-' + widgetsId.toString())
+      .getElementById("widget-" + widgetsId.toString())
       ?.appendChild(renderedHtml);
   }
 
@@ -752,7 +749,7 @@ export class MainDashboardComponent implements OnInit {
       .rootNodes[0] as HTMLElement;
 
     document
-      .getElementById('widget-' + widgetsId.toString())
+      .getElementById("widget-" + widgetsId.toString())
       ?.appendChild(renderedHtml);
   }
 
@@ -781,8 +778,8 @@ export class MainDashboardComponent implements OnInit {
     const loadingFactory =
       this.factoryResolver.resolveComponentFactory(SpinnerComponent);
     const componentLoading = loadingFactory.create(this.injector);
-    componentLoading.instance.size = 'sm';
-    componentLoading.instance.message = '';
+    componentLoading.instance.size = "sm";
+    componentLoading.instance.message = "";
     this.applicationRef.attachView(componentLoading.hostView);
     const renderedHtml = (componentLoading.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
@@ -825,7 +822,7 @@ export class MainDashboardComponent implements OnInit {
 
       elToRemove.remove();
       this.gridStack.removeWidget(elToRemove);
-      const template = document.createElement('template');
+      const template = document.createElement("template");
       template.innerHTML =
         `<div id='widget-${widgetsId}' style="height: 100%"></div>`.trim();
       const widgetElement = template.content.firstChild;
@@ -841,7 +838,7 @@ export class MainDashboardComponent implements OnInit {
       const elToRemove = element.nativeElement.parentElement;
       elToRemove.remove();
       this.gridStack.removeWidget(elToRemove);
-      const template = document.createElement('template');
+      const template = document.createElement("template");
       template.innerHTML =
         `<div id='widget-${widgetsId}' style="height: 100%"></div>`.trim();
       const widgetElement = template.content.firstChild;
@@ -849,12 +846,12 @@ export class MainDashboardComponent implements OnInit {
       elToAdd.appendChild(widgetElement);
     } else {
       document
-        .getElementById('widget-' + widgetsId.toString())
+        .getElementById("widget-" + widgetsId.toString())
         ?.appendChild(renderedHtml);
     }
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event: any) {
     if (event.target.innerWidth < 1329) {
       this.hideRightPanel = true;
