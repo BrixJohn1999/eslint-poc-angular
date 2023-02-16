@@ -22,3 +22,5 @@ TODO: Guide users through getting your code up and running on their own system. 
 TODO: run the tests.
 
 1. npm run lint
+
+#try to add something to test CI for pipeline
